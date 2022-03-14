@@ -1,0 +1,3 @@
+{
+    "files": ["main.py","main.qml","qml/pages/aboutPage.qml","qml/controls/LeftMenuBtn.qml","qml/controls/CustomButton.qml","qml/pages/settingsPage.qml","qml/pages/homePage.qml","qml/controls/CustomCombobox.qml","qml/controls/CustomTextField.qml"]
+}
