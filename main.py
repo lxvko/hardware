@@ -3,7 +3,6 @@ import os
 import sys
 import wmi
 import time
-import json
 from pathlib import Path
 
 from fetch_data import getData
@@ -11,7 +10,7 @@ from arduino import serialSendDict, serialSendInt
 from arduino import onOpen, getPorts, makeSelectedInt
 
 from PySide6.QtGui import QGuiApplication
-from PySide6.QtCore import QObject, Slot, Signal, QRunnable, QThreadPool
+from PySide6.QtCore import QObject, Slot, Signal, QThread
 from PySide6.QtQml import QQmlApplicationEngine
 
 
@@ -29,11 +28,17 @@ for d in disks:
     disk_list.append(d.Caption)
 
 
-class Worker(QRunnable):
-    def __init__(self):
-        super(Worker, self).__init__()
+class Thread(QThread):
 
-    @Slot()
+    sendData = Signal(dict)
+    sendPrint = Signal(list)
+
+    def __init__(self):
+        super(Thread, self).__init__()
+
+    def __del__(self):
+        self.wait()
+
     def run(self):
         global infinity
         global freq
@@ -44,28 +49,33 @@ class Worker(QRunnable):
             time.sleep(freq)
             data = getData()
             if data is not None:
-                serialSendDict(data)
-                serialSendInt(['print'])
+                self.sendData.emit(data)
+                self.sendPrint.emit(['print'])
 
 
 class MainWindow(QObject):
     def __init__(self):
         QObject.__init__(self)
 
-        self.threadpool = QThreadPool()
-        self.threadpool.setMaxThreadCount(1)
-
     isChecked = Signal(bool)
     countLimit = Signal(bool)
     driveModelList = Signal(list)
     portsModelList = Signal(list)
 
+    def sendDataToArduino(self, data):
+        if type(data) == dict:
+            serialSendDict(data)
+        elif type(data) == list:
+            serialSendInt(data)
+
     @Slot()
     def applyButton(self):
         if count > 0:
             serialSendInt(makeSelectedInt(selected, disk_list))
-            worker = Worker()
-            self.threadpool.start(worker)
+            self.thread = Thread()
+            self.thread.sendData.connect(self.sendDataToArduino)
+            self.thread.sendPrint.connect(self.sendDataToArduino)
+            self.thread.start()
 
     @Slot()
     def stopButton(self):

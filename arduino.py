@@ -22,7 +22,6 @@ def getPorts():
 # Sending data to Arduino
 def serialSendInt(data):
     if data[0] == 'info':
-        print('aaa')
         data.pop(0)
         txs = '99,' + ','.join(map(str, data)) + ';'
         serial.write(txs.encode())
@@ -46,9 +45,7 @@ def serialSendDict(data):
     ints.pop(0)
     for int in ints:
         val = takeWhatDoYouNeed(int, data)
-        print(val)
         txs = int + ',' + ','.join(map(str, val)) + ';'
-        print(txs + ' has been sended')
         serial.write(txs.encode())
 
 
