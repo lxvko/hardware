@@ -3916,3 +3916,5 @@ venv/Scripts/wmitest.cmd
 venv/Scripts/wmitest.master.ini
 venv/Scripts/wmitest.py
 venv/Scripts/wmiweb.py
+.vscode/arduino.json
+.vscode/c_cpp_properties.json
