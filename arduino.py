@@ -47,7 +47,6 @@ def serialSendDict(data):
         val = takeWhatDoYouNeed(int, data)
         for i in val:
             i.replace(',', '.')
-        print(val)
         txs = int + '|' + '|'.join(map(str, val)) + ';'
         serial.write(txs.encode())
 
