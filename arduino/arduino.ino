@@ -53,7 +53,7 @@ void parsing()
 {
   if (serial.available())
   {
-    GParser data(serial.buf, ',');
+    GParser data(serial.buf, '|');
     am_names = data.split();
     //      for (byte i = 0; i < am; i++) Serial.println(data[i]);
     switch (data.getInt(0))
@@ -64,6 +64,7 @@ void parsing()
       lcd.clear();
       break;
     case 97:
+      delay(1000);
       lcd.clear();
       lcd.setCursor(7, 1);
       lcd.print("Bye");
@@ -126,7 +127,7 @@ void display()
     case 2:
       lcd.print("CPU Core ");
       lcd.print(CPUClocks[0]);
-      lcd.print(" MHz ");
+      lcd.print(" ");
       s = s + 1;
       break;
     case 3:
@@ -145,8 +146,9 @@ void display()
       s = s + 1;
       break;
     case 4:
+      lcd.print("C:");
       lcd.print(GPUClocks[0]);
-      lcd.print(" MHz ");
+      lcd.print(" MHz M:");
       lcd.print(GPUClocks[1]);
       lcd.print(" MHz ");
       s = s + 1;
@@ -169,7 +171,7 @@ void display()
       for (int i = 0; i < perc; i++) lcd.write(4);
       lcd.setCursor(17, s);
       lcd.print(RAMuse[0]);
-      lcd.print("% ");
+      lcd.print("%");
       s = s + 1;
       break;
     case 7:
@@ -188,6 +190,7 @@ void display()
       lcd.print(' ');
       lcd.setCursor(0, s);
       lcd.print(DiskUsage0[0]);
+      lcd.print(' ');
       lcd.setCursor(19, s + 1);
       lcd.print(' ');
       lcd.setCursor(0, s + 1);
@@ -200,6 +203,7 @@ void display()
       lcd.print(' ');
       lcd.setCursor(0, s);
       lcd.print(DiskUsage1[0]);
+      lcd.print(' ');
       lcd.setCursor(19, s + 1);
       lcd.print(' ');
       lcd.setCursor(0, s + 1);

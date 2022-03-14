@@ -23,19 +23,19 @@ def getPorts():
 def serialSendInt(data):
     if data[0] == 'info':
         data.pop(0)
-        txs = '99,' + ','.join(map(str, data)) + ';'
+        txs = '99|' + '|'.join(map(str, data)) + ';'
         serial.write(txs.encode())
     elif data[0] == 'print':
         data.pop(0)
-        txs = '98,' + 'print' + ';'
+        txs = '98|' + 'print' + ';'
         serial.write(txs.encode())
     elif data[0] == 'bye':
         data.pop(0)
-        txs = '97,' + 'bye' + ';'
+        txs = '97|' + 'bye' + ';'
         serial.write(txs.encode())
     elif data[0] == 'hello':
         data.pop(0)
-        txs = '95,' + ','.join(map(str, data)) + ';'
+        txs = '95/' + '|'.join(map(str, data)) + ';'
         serial.write(txs.encode())
 
 
@@ -45,7 +45,10 @@ def serialSendDict(data):
     ints.pop(0)
     for int in ints:
         val = takeWhatDoYouNeed(int, data)
-        txs = int + ',' + ','.join(map(str, val)) + ';'
+        for i in val:
+            i.replace(',', '.')
+        print(val)
+        txs = int + '|' + '|'.join(map(str, val)) + ';'
         serial.write(txs.encode())
 
 
@@ -67,49 +70,49 @@ def makeSelectedInt(sel, disks):
 
     selected_int = ['info']
 
-    if 'CPU' in selected:
+    if 'CpuLoad' in selected:
         selected_int.append('1')
-    if 'CPUClocks' in selected:
+    if 'CpuClocks' in selected:
         selected_int.append('2')
-    if 'GPU' in selected:
+    if 'GpuLoad' in selected:
         selected_int.append('3')
-    if 'GPUClocks' in selected:
+    if 'GpuClocks' in selected:
         selected_int.append('4')
-    if 'GPUmem' in selected:
+    if 'GpuMem' in selected:
         selected_int.append('5')
-    if 'RAMuse' in selected:
+    if 'RamLoad' in selected:
         selected_int.append('6')
-    if 'RAMmem' in selected:
+    if 'RamMem' in selected:
         selected_int.append('7')
     if 'Uptime' in selected:
         selected_int.append('8')
     try:
-        if f'Disk Space {disks[0]}' in selected:
+        if f'Used Space {disks[0]}' in selected:
             selected_int.append('9')
     except IndexError:
         pass
     try:
-        if f'Disk Space {disks[1]}' in selected:
+        if f'Used Space {disks[1]}' in selected:
             selected_int.append('10')
     except IndexError:
         pass
     try:
-        if f'Disk Space {disks[2]}' in selected:
+        if f'Used Space {disks[2]}' in selected:
             selected_int.append('11')
     except IndexError:
         pass
     try:
-        if f'Disk Usage {disks[0]}' in selected:
+        if f'Rate {disks[0]}' in selected:
             selected_int.append('12')
     except IndexError:
         pass
     try:
-        if f'Disk Usage {disks[1]}' in selected:
+        if f'Rate {disks[1]}' in selected:
             selected_int.append('13')
     except IndexError:
         pass
     try:
-        if f'Disk Usage {disks[2]}' in selected:
+        if f'Rate {disks[2]}' in selected:
             selected_int.append('14')
     except IndexError:
         pass
@@ -121,24 +124,25 @@ def makeSelectedInt(sel, disks):
 def takeWhatDoYouNeed(sel, data):
     match sel:
         case '1':
-            return [data.get('Temperatures CPU Package'),
-                    data.get('Load CPU Total')]
+            return [data.get('Temperatures CPU Package').split(',')[0],
+                    data.get('Load CPU Total').split(',')[0]]
         case '2':
             return [data.get('Clocks CPU Core #1')]
         case '3':
-            return [data.get('Temperatures GPU Core'),
-                    data.get('Load GPU Core')]
+            return [data.get('Temperatures GPU Core').split(',')[0],
+                    data.get('Load GPU Core').split(',')[0]]
         case '4':
-            return [data.get('Clocks GPU Core'),
-                    data.get('Clocks GPU Memory')]
+            return [data.get('Clocks GPU Core').split(',')[0],
+                    data.get('Clocks GPU Memory').split(',')[0]]
         case '5':
-            return [data.get('Data GPU Memory Used'),
-                    data.get('Data GPU Memory Total')]
+            return [data.get('Data GPU Memory Used').split(',')[0],
+                    data.get('Data GPU Memory Total').split(',')[0]]
         case '6':
-            return [data.get('Load Memory')]
+            return [data.get('Load Memory').split(',')[0]]
         case '7':
+            dataMemoryTotal = float((data.get('Data Memory Available')[:-3]).replace(',', '.')) + float((data.get('Data Memory Used')[:-3]).replace(',', '.'))
             return [data.get('Data Memory Used'),
-                    data.get('Data Memory Available')]
+                    str(round(dataMemoryTotal, 1)) + ' GB']
         case '8':
             return ['Uptime: ' + data.get('Uptime')]
         case '9':
@@ -148,14 +152,14 @@ def takeWhatDoYouNeed(sel, data):
         case '11':
             return ['DiskSpace2: ' + data.get(f'Used Space {disk_list[2]}')]
         case '12':
-            return ['DiskRead0  ' + data.get(f'Read Rate {disk_list[0]}'),
-                    'DiskWrite0 ' + data.get(f'Write Rate {disk_list[0]}')]
+            return ['DiskRead0  ' + data.get(f'Read Rate {disk_list[0]}').replace('/', ''),
+                    'DiskWrite0 ' + data.get(f'Write Rate {disk_list[0]}').replace('/', '')]
         case '13':
-            return ['DiskRead1  ' + data.get(f'Read Rate {disk_list[1]}'),
-                    'DiskWrite1 ' + data.get(f'Write Rate {disk_list[1]}')]
+            return ['DiskRead1  ' + data.get(f'Read Rate {disk_list[1]}').replace('/', ''),
+                    'DiskWrite1 ' + data.get(f'Write Rate {disk_list[1]}').replace('/', '')]
         case '14':
-            return ['DiskRead2  ' + data.get(f'Read Rate {disk_list[2]}'),
-                    'DiskWrite2 ' + data.get(f'Write Rate {disk_list[2]}')]
+            return ['DiskRead2  ' + data.get(f'Read Rate {disk_list[2]}').replace('/', ''),
+                    'DiskWrite2 ' + data.get(f'Write Rate {disk_list[2]}').replace('/', '')]
 
 
 if __name__ == "__main__":

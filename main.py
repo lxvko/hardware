@@ -52,6 +52,8 @@ class Thread(QThread):
                 self.sendData.emit(data)
                 self.sendPrint.emit(['print'])
 
+        self.sendPrint.emit(['bye'])
+
 
 class MainWindow(QObject):
     def __init__(self):
@@ -82,7 +84,7 @@ class MainWindow(QObject):
         global infinity
 
         infinity = 'limit'
-        serialSendInt(['bye', '97'])
+        # serialSendInt(['bye', '97'])
 
     @Slot(str)
     def openPort(self, port):
