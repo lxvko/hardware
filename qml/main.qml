@@ -286,15 +286,7 @@ Window {
                         source: Qt.resolvedUrl('pages/homePage.qml')
                         visible: true
                     }
-                    // Loader {
-                    //     id: pagesSettings
-                    //     anchors.fill: parent
-                    //     source: Qt.resolvedUrl('pages/settingsPage.qml')
-                    //     visible: false
-                    //     onLoaded: {
-                    //         backend.loadSettings()
-                    //     }
-                    // }
+                    
                     Loader {
                         id: pagesAbout
                         anchors.fill: parent
