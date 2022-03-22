@@ -321,7 +321,7 @@ Window {
                     Label {
                         id: labelBottomInfo
                         color: "#5f6a82"
-                        text: qsTr("https://github.com/kensh1kk/hardware")
+                        text: qsTr("https://github.com/lxvko/hardware")
                         anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
                         anchors.leftMargin: 10
