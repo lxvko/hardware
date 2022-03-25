@@ -1,3 +1,3 @@
 {
-    "files": ["main.py","main.qml","qml/pages/aboutPage.qml","qml/controls/LeftMenuBtn.qml","qml/controls/CustomButton.qml","qml/pages/settingsPage.qml","qml/pages/homePage.qml","qml/controls/CustomCombobox.qml","qml/controls/CustomTextField.qml"]
+    "files": ["qml/pages/aboutPage.qml","qml/controls/CustomButton.qml","qml/controls/CustomTextField.qml","main.qml","qml/controls/LeftMenuBtn.qml","qml/pages/homePage.qml","qml/pages/settingsPage.notqml","qml/controls/CustomCombobox.qml","main.py"]
 }

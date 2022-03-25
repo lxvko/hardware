@@ -74,9 +74,15 @@ Item {
                     id: switchCpuLoad
                     text: ""
                     font.pointSize: 12
+
                     onToggled: {
                         backend.returnStatus(switchCpuLoad.checked, 'CpuLoad', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Температура и загрузка ЦП в процентах ")
+
                 }
 
                 Label {
@@ -87,6 +93,8 @@ Item {
                     Layout.preferredHeight: 22
                     font.pointSize: 14
                 }
+                
+
             }
 
             RowLayout {
@@ -102,6 +110,10 @@ Item {
                     onToggled: {
                         backend.returnStatus(switchCpuClocks.checked, 'CpuClocks', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Рабочая частота нулевого ядра ЦП ")
                 }
 
                 Label {
@@ -145,6 +157,10 @@ Item {
                     onToggled: {
                         backend.returnStatus(switchGpuLoad.checked, 'GpuLoad', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Температура и загрузка ГП в процентах ")
                 }
 
                 Label {
@@ -170,6 +186,10 @@ Item {
                     onToggled: {
                         backend.returnStatus(switchGpuClocks.checked, 'GpuClocks', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Рабочие частоты ядра и памяти ГП ")
                 }
 
                 Label {
@@ -195,6 +215,10 @@ Item {
                     onToggled: {
                         backend.returnStatus(switchGpuMem.checked, 'GpuMem', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Заполнение видеопамяти в мегабайтах ")
                 }
 
                 Label {
@@ -239,6 +263,10 @@ Item {
                     onToggled: {
                         backend.returnStatus(switchRamLoad.checked, 'RamLoad', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Заполнение ОЗУ с процентной шкалой ")
                 }
 
                 Label {
@@ -264,6 +292,10 @@ Item {
                     onToggled: {
                         backend.returnStatus(switchRamMem.checked, 'RamMem', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Заполнение ОЗУ в гигабайтах ")
                 }
 
                 Label {
@@ -308,6 +340,10 @@ Item {
                     onToggled: {
                         backend.returnStatus(switchUptime.checked, 'Uptime', 'ForDecency')
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Время с момента включения компьютера ")
                 }
 
                 Label {
@@ -340,6 +376,10 @@ Item {
                             comboDriveUsedSpace.enabled = false
                         }
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Параметр разблокирует выбор дисков ")
                 }
 
                 Label {
@@ -372,6 +412,10 @@ Item {
                             comboDriveRate.enabled = false
                         }
                     }
+
+                    ToolTip.delay: 500
+                    ToolTip.visible: hovered
+                    ToolTip.text: qsTr(" Параметр разблокирует выбор дисков ")
                 }
 
                 Label {
@@ -418,6 +462,10 @@ Item {
                 onActivated: {
                     backend.returnDiskStatus('Used Space ', comboDriveUsedSpace.currentText)
                 }
+
+                ToolTip.delay: 500
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr(" Информация о занятом пространстве на диске ")
             }
 
             CustomCombobox {
@@ -435,6 +483,10 @@ Item {
                 onActivated: {
                     backend.returnDiskStatus('Rate ', comboDriveRate.currentText)
                 }
+
+                ToolTip.delay: 500
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr(" Информация о рабочей скорости записи и чтения диска ")
             }
         }
 
@@ -510,6 +562,10 @@ Item {
                 onClicked: {
                     backend.openPort(comboPorts.currentText)
                 }
+
+                ToolTip.delay: 500
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr(" Открыть COM-порт для передачи данных на микроконтроллер ")
             }
 
             CustomButton {
@@ -531,6 +587,10 @@ Item {
                 onClicked: {
                     backend.applyButton()
                 }
+
+                ToolTip.delay: 500
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr(" Начать отправку данных на микроконтроллер ")
             }
 
             CustomButton {
@@ -552,6 +612,9 @@ Item {
                 onClicked: {
                     backend.stopButton()
                 }
+                ToolTip.delay: 500
+                ToolTip.visible: hovered
+                ToolTip.text: qsTr(" Приостановить отправку данных на микроконтроллер ")
             }
         }
 

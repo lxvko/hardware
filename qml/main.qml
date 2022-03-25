@@ -73,7 +73,7 @@ Window {
                     Label {
                         id: labelTopInfo
                         color: "#5f6a82"
-                        text: qsTr("Мониторинг датчиков системы")
+                        text: qsTr("Мониторинг технических параметров ПК")
                         font.pointSize: 10
                         anchors.left: parent.left
                         anchors.right: parent.right
@@ -89,7 +89,7 @@ Window {
                     Label {
                         id: lagelRightInfo
                         color: "#5f6a82"
-                        text: qsTr("EETK 414-KC")
+                        text: qsTr("ЕЭТК 414-КС")
                         font.pointSize: 10
                         anchors.left: labelTopInfo.right
                         anchors.right: parent.right
@@ -204,7 +204,7 @@ Window {
                         id: animationMenu
                         target: leftMenu
                         property: 'width'
-                        to: if(leftMenu.width == 70) return 200; else return 70
+                        to: if(leftMenu.width == 70) return 160; else return 70
                         duration: 1000
                         easing.type: Easing.InOutQuint
                     }
