@@ -113,7 +113,7 @@ Item {
 
                     ToolTip.delay: 500
                     ToolTip.visible: hovered
-                    ToolTip.text: qsTr(" Рабочая частота нулевого ядра ЦП ")
+                    ToolTip.text: qsTr(" Средняя рабочая частота ядер ЦП ")
                 }
 
                 Label {

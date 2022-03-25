@@ -126,7 +126,7 @@ def takeWhatDoYouNeed(sel, data):
             return [data.get('Temperatures CPU Package').split(',')[0],
                     data.get('Load CPU Total').split(',')[0]]
         case '2':
-            return [data.get('Clocks CPU Core #1')]
+            return [f'{getClocksCPUCore(data)} MHz']
         case '3':
             return [data.get('Temperatures GPU Core').split(',')[0],
                     data.get('Load GPU Core').split(',')[0]]
@@ -159,6 +159,16 @@ def takeWhatDoYouNeed(sel, data):
         case '14':
             return ['DiskRead2  ' + data.get(f'Read Rate {disk_list[2]}').replace('/', ''),
                     'DiskWrite2 ' + data.get(f'Write Rate {disk_list[2]}').replace('/', '')]
+
+
+def getClocksCPUCore(data):
+    values = []
+    for i in range(1, 7, 1):
+        value = data[f'Clocks CPU Core #{i}']
+        if value:
+            values.append(int(value.split(',')[0]))
+
+    return sum(values)/len(values)
 
 
 if __name__ == "__main__":
