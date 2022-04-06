@@ -63,6 +63,7 @@ void parsing()
       for (int i = 1; i < am_names; i++) names[i - 1] = data.getInt(i);
       lcd.clear();
       break;
+    case 98: display(); break;
     case 97:
       delay(1000);
       lcd.clear();
@@ -71,6 +72,13 @@ void parsing()
       lcd.setCursor(2, 2);
       lcd.print("Have a nice day!");
       break;
+    case 96:
+      lcd.clear();
+      lcd.setCursor(4, 1);
+      lcd.print("You must run");
+      lcd.setCursor(0, 2);
+      lcd.print("LibreHardwareMonitor");
+      break;
     case 95:
       lcd.clear();
       lcd.setCursor(7, 1);
@@ -78,7 +86,6 @@ void parsing()
       lcd.setCursor(3, 2);
       lcd.print("Make a choice");
       break;
-    case 98: display(); break;
     case 1: for (int i = 0; i < am_names; i++) CPU[i - 1] = data.getInt(i); break;
     case 2: CPUClocks[0] = String(data[1]); break;
     case 3: for (int i = 0; i < am_names; i++) GPU[i - 1] = data.getInt(i); break;

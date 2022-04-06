@@ -58,8 +58,11 @@ def getData():
     Uptime = time.strftime("%H:%M:%S", time.gmtime(uptime()))
     sensor_data['Uptime'] = Uptime
 
-    response = requests.get(url=url)
-    data = json.dumps(response.json(), indent=2)
+    try:
+        response = requests.get(url=url)
+        data = json.dumps(response.json(), indent=2)
+    except requests.exceptions.ConnectionError:
+        return 'RunHWMon'
 
     computer = Computer.parse_raw(data)
     parts = computer.Children[0].Children

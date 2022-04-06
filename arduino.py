@@ -33,6 +33,10 @@ def serialSendInt(data):
         data.pop(0)
         txs = '97|' + 'bye' + ';'
         serial.write(txs.encode())
+    elif data[0] == 'runHW':
+        data.pop(0)
+        txs = '96|' + 'runHW' + ';'
+        serial.write(txs.encode())
     elif data[0] == 'hello':
         data.pop(0)
         txs = '95/' + '|'.join(map(str, data)) + ';'

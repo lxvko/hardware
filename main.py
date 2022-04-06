@@ -48,11 +48,18 @@ class Thread(QThread):
         while infinity == 'not the limit':
             time.sleep(freq)
             data = getData()
+            bye = True
             if data is not None:
-                self.sendData.emit(data)
-                self.sendPrint.emit(['print'])
+                if data != 'RunHWMon':
+                    self.sendData.emit(data)
+                    self.sendPrint.emit(['print'])
+                else:
+                    self.sendPrint.emit(['runHW'])
+                    infinity = 'limit'
+                    bye = False
 
-        self.sendPrint.emit(['bye'])
+        if bye:
+            self.sendPrint.emit(['bye'])
 
 
 class MainWindow(QObject):
@@ -82,9 +89,7 @@ class MainWindow(QObject):
     @Slot()
     def stopButton(self):
         global infinity
-
         infinity = 'limit'
-        # serialSendInt(['bye', '97'])
 
     @Slot(str)
     def openPort(self, port):
@@ -163,7 +168,6 @@ class MainWindow(QObject):
                 selected.remove(chosenOne)
                 if count == 3:
                     self.countLimit.emit(False)
-        print(selected)
 
 
 if __name__ == "__main__":
