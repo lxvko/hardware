@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 
 Item {
+    property string fontFamily: "Roboto Slab"
+
     id: item1
     Rectangle {
         id: background
@@ -24,6 +26,7 @@ Item {
                 y: 66
                 color: "#ffffff"
                 text: qsTr("Информация о программе")
+                font.family: fontFamily
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -34,14 +37,14 @@ Item {
                 anchors.bottomMargin: 10
                 anchors.leftMargin: 10
                 anchors.topMargin: 10
-                font.pointSize: 18
+                font.pointSize: 17
             }
         }
 
         Rectangle {
             id: bgAbout
             width: 520
-            height: 306
+            height: 277
             color: "#1d2128"
             radius: 10
             anchors.left: parent.left
@@ -52,21 +55,23 @@ Item {
             Label {
                 id: name
                 color: "#ffffff"
-                text: qsTr("Мониторинг технических параметров ПК")
+                text: qsTr("Мониторинг сведений об аппаратных компонентах ПК")
+                font.family: fontFamily
                 anchors.left: parent.left
                 anchors.top: diplom.bottom
                 anchors.leftMargin: 15
                 anchors.topMargin: 5
-                font.pointSize: 14
+                font.pointSize: 12
             }
 
             Label {
                 id: myname
                 color: "#ffffff"
                 text: qsTr("Разработал: Дон Михаил Дмитриевич")
+                font.family: fontFamily
                 anchors.left: parent.left
                 anchors.top: separator1.bottom
-                font.pointSize: 14
+                font.pointSize: 12
                 anchors.leftMargin: 15
                 anchors.topMargin: 13
             }
@@ -75,9 +80,10 @@ Item {
                 id: diplom
                 color: "#ffffff"
                 text: qsTr("Разработано для дипломного проекта")
+                font.family: fontFamily
                 anchors.left: parent.left
                 anchors.top: parent.top
-                font.pointSize: 14
+                font.pointSize: 12
                 anchors.leftMargin: 15
                 anchors.topMargin: 20
             }
@@ -86,10 +92,11 @@ Item {
                 id: rukname
                 color: "#ffffff"
                 text: qsTr("Дипломный руководитель: Неволина Елена Валерьевна")
+                font.family: fontFamily
                 anchors.left: parent.left
                 anchors.top: myname.bottom
                 verticalAlignment: Text.AlignTop
-                font.pointSize: 14
+                font.pointSize: 12
                 anchors.leftMargin: 15
                 anchors.topMargin: 5
             }
@@ -126,7 +133,8 @@ Item {
                 text: qsTr("Back-end: Python")
                 anchors.left: parent.left
                 anchors.top: frontend.bottom
-                font.pointSize: 14
+                font.pointSize: 12
+                font.family: fontFamily
                 anchors.leftMargin: 15
                 anchors.topMargin: 5
             }
@@ -139,7 +147,8 @@ Item {
                 anchors.left: parent.left
                 anchors.top: separator2.bottom
                 verticalAlignment: Text.AlignTop
-                font.pointSize: 14
+                font.pointSize: 12
+                font.family: fontFamily
                 anchors.leftMargin: 15
                 anchors.topMargin: 13
             }
@@ -147,10 +156,11 @@ Item {
             Label {
                 id: created
                 color: "#ffffff"
-                text: qsTr("Скомпилировано: 06.04.2022")
+                text: qsTr("Версия от 22.04.2022")
                 anchors.left: parent.left
                 anchors.top: backend.bottom
-                font.pointSize: 14
+                font.pointSize: 12
+                font.family: fontFamily
                 anchors.leftMargin: 15
                 anchors.topMargin: 5
             }

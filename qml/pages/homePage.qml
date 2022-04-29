@@ -4,7 +4,8 @@ import QtQuick.Layouts
 import '../controls'
 
 Item {
-
+    property string fontFamily: "Roboto Slab"
+    
     Rectangle {
         id: bgHome
         color: "#2c313c"
@@ -16,7 +17,7 @@ Item {
 
         Rectangle {
             id: bgTitle
-            width: 474
+            width: 500
             height: 50
             color: "#495163"
             radius: 10
@@ -41,6 +42,7 @@ Item {
                 anchors.bottomMargin: 10
                 anchors.leftMargin: 10
                 anchors.topMargin: 10
+                font.family: fontFamily
                 font.pointSize: 18
             }
         }
@@ -63,6 +65,7 @@ Item {
                 color: "#ffffff"
                 text: qsTr("CPU")
                 font.pointSize: 16
+                font.family: fontFamily
             }
 
             RowLayout {
@@ -91,7 +94,8 @@ Item {
                     text: qsTr("Загрузка ЦП")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
                 
 
@@ -122,7 +126,8 @@ Item {
                     text: qsTr("Частоты ядра")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
         }
@@ -144,6 +149,7 @@ Item {
                 color: "#ffffff"
                 text: qsTr("GPU")
                 font.pointSize: 16
+                font.family: fontFamily
             }
 
             RowLayout {
@@ -169,7 +175,8 @@ Item {
                     text: qsTr("Загрузка ГП")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
 
@@ -198,7 +205,8 @@ Item {
                     text: qsTr("Частоты ГП")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
 
@@ -227,7 +235,8 @@ Item {
                     text: qsTr("Заполнение памяти")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
         }
@@ -250,6 +259,7 @@ Item {
                 color: "#ffffff"
                 text: qsTr("RAM")
                 font.pointSize: 16
+                font.family: fontFamily
             }
 
             RowLayout {
@@ -275,7 +285,8 @@ Item {
                     text: qsTr("Процентное заполнение")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
 
@@ -304,7 +315,8 @@ Item {
                     text: qsTr("Наглядное заполнение")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
         }
@@ -327,6 +339,7 @@ Item {
                 color: "#ffffff"
                 text: qsTr("Прочее")
                 font.pointSize: 16
+                font.family: fontFamily
             }
 
             RowLayout {
@@ -352,7 +365,8 @@ Item {
                     text: qsTr("Время работы компьютера")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
 
@@ -388,7 +402,8 @@ Item {
                     text: qsTr("Занятое место на диске")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
 
@@ -424,7 +439,8 @@ Item {
                     text: qsTr("Скорость чтения/записи диска")
                     verticalAlignment: Text.AlignVCenter
                     Layout.preferredHeight: 22
-                    font.pointSize: 14
+                    font.pointSize: 12
+                    font.family: fontFamily
                 }
             }
         }
@@ -445,11 +461,13 @@ Item {
                 color: "#ffffff"
                 text: qsTr("Drives")
                 font.pointSize: 16
+                font.family: fontFamily
             }
 
             CustomCombobox {
                 id: comboDriveUsedSpace
                 font.pointSize: 12
+                font.family: fontFamily
                 enabled: false
                 y: 56
                 height: 30
@@ -471,6 +489,7 @@ Item {
             CustomCombobox {
                 id: comboDriveRate
                 font.pointSize: 12
+                font.family: fontFamily
                 enabled: false
                 y: 56
                 height: 30
@@ -508,6 +527,7 @@ Item {
                 color: "#ffffff"
                 text: qsTr("Output settings")
                 font.pointSize: 16
+                font.family: fontFamily
             }
 
             CustomTextField {
@@ -527,6 +547,7 @@ Item {
                 anchors.verticalCenterOffset: 2
                 anchors.leftMargin: 23
                 placeholderText: qsTr("Интервал в секундах")
+                font.family: fontFamily
                 validator: IntValidator {bottom: 0; top: 999999;}
                 onEditingFinished: {
                     backend.getSettings(textFrequency.displayText)
@@ -541,7 +562,8 @@ Item {
 //                displayText: "Choose"
                 anchors.bottomMargin: 15
                 anchors.horizontalCenter: btnApply.horizontalCenter
-                font.pointSize: 12
+                font.pointSize: 11
+                font.family: fontFamily
                 onActivated: {
                     backend.getPortsComboBox()
                 }
@@ -551,10 +573,11 @@ Item {
                 id: btnOpenPort
                 width: 81
                 height: 27
-                text: "Open"
+                text: "Open "
                 anchors.verticalCenter: comboPorts.verticalCenter
                 anchors.horizontalCenter: btnStop.horizontalCenter
-                font.pointSize: 13
+                font.pointSize: 11
+                font.family: fontFamily
                 Layout.maximumWidth: 200
                 Layout.fillWidth: true
                 Layout.preferredHeight: 40
@@ -572,7 +595,7 @@ Item {
                 id: btnApply
                 y: 136
                 height: 27
-                text: "Apply"
+                text: "Apply "
                 anchors.left: parent.left
                 anchors.right: btnStop.left
                 anchors.bottom: parent.bottom
@@ -580,7 +603,8 @@ Item {
                 anchors.rightMargin: 10
                 anchors.bottomMargin: 15
                 Layout.fillWidth: true
-                font.pointSize: 13
+                font.pointSize: 11
+                font.family: fontFamily
                 Layout.preferredWidth: 250
                 Layout.preferredHeight: 40
                 Layout.maximumWidth: 200
@@ -599,12 +623,13 @@ Item {
                 y: 126
                 width: 81
                 height: 27
-                text: "Stop"
+                text: "Stop "
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
                 anchors.rightMargin: 15
                 anchors.bottomMargin: 15
-                font.pointSize: 13
+                font.pointSize: 11
+                font.family: fontFamily
                 Layout.fillWidth: true
                 Layout.preferredWidth: 250
                 Layout.preferredHeight: 40

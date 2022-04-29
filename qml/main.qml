@@ -6,6 +6,8 @@ import Qt5Compat.GraphicalEffects
 import 'controls'
 
 Window {
+    property string fontFamily: "Roboto Slab"
+
     id: mainWindow
     width: 1000
     height: 600
@@ -75,6 +77,7 @@ Window {
                         color: "#5f6a82"
                         text: qsTr("Мониторинг технических параметров ПК")
                         font.pointSize: 10
+                        font.family: fontFamily
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -91,6 +94,7 @@ Window {
                         color: "#5f6a82"
                         text: qsTr("ЕЭТК 414-КС")
                         font.pointSize: 10
+                        font.family: fontFamily
                         anchors.left: labelTopInfo.right
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -139,6 +143,7 @@ Window {
                         id: label
                         color: "#c3cbdd"
                         text: qsTr("Hardware Monitor")
+                        font.family: fontFamily
                         anchors.left: icon.right
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -219,6 +224,7 @@ Window {
                             id: btnHome
                             width: leftMenu.width
                             text: qsTr("Home")
+                            font.family: fontFamily
                             isActiveMenu: true
                             onClicked: {
                                 btnHome.isActiveMenu = true
@@ -253,6 +259,7 @@ Window {
                         y: 120
                         width: leftMenu.width
                         text: qsTr("About")
+                        font.family: fontFamily
                         anchors.bottom: parent.bottom
                         anchors.bottomMargin: 25
                         btnIconSource: "../../images/svg_images/about_icon.svg"
@@ -314,6 +321,7 @@ Window {
                         id: labelBottomInfo
                         color: "#5f6a82"
                         text: qsTr("https://github.com/lxvko/hardware")
+                        font.family: fontFamily
                         anchors.fill: parent
                         verticalAlignment: Text.AlignVCenter
                         anchors.leftMargin: 10
