@@ -2,13 +2,14 @@ import time
 from PySide6.QtSerialPort import QSerialPort, QSerialPortInfo
 from PySide6.QtCore import QIODevice
 
+# Объявление переменных и параметров
 serial = QSerialPort()
 serial.setBaudRate(115200)
 disk_list = []
 selected = []
 
 
-# Configuring the Arduino Port
+# Формирование списка доступных портов для подключения
 def getPorts():
     portlist = []
     ports = QSerialPortInfo().availablePorts()
@@ -19,35 +20,47 @@ def getPorts():
     return portlist
 
 
-# Sending data to Arduino
+# Отправка сигналов на микроконтроллер
 def serialSendInt(data):
+    # Сигнал для формирования выбранных параметров
+    # Отправляется после нажатия на кнопку 'Apply'
     if data[0] == 'info':
         data.pop(0)
         txs = '99|' + '|'.join(map(str, data)) + ';'
         serial.write(txs.encode())
+    # Сигнал для печати
+    # Отправляется после каждого цикла отправки данных
     elif data[0] == 'print':
         data.pop(0)
         txs = '98|' + 'print' + ';'
         serial.write(txs.encode())
+    # Сигнал для печати о завершении работы
+    # Отправляется после нажатия на кнопку 'Stop'
     elif data[0] == 'bye':
         data.pop(0)
         txs = '97|' + 'bye' + ';'
         serial.write(txs.encode())
+    # Сигнал для уведомления пользователя об ошибке
+    # Отправляется после неудачной попытки получить данные с сервера
     elif data[0] == 'runHW':
         data.pop(0)
         txs = '96|' + 'runHW' + ';'
         serial.write(txs.encode())
+    # Сигнал для печати приветствия
+    # Отправляется после подключения к микроконтроллеру
     elif data[0] == 'hello':
         data.pop(0)
         txs = '95/' + '|'.join(map(str, data)) + ';'
         serial.write(txs.encode())
 
 
-# Sending data to Arduino
+# Функция отправки данных на микроконтроллер
 def serialSendDict(data):
+    # Формируется кодовые названия выбранных параметров
     ints = makeSelectedInt(selected, disk_list)
     ints.pop(0)
     for int in ints:
+        # Формируется строка данных для отправки на микроконтроллер
         val = takeWhatDoYouNeed(int, data)
         for i in val:
             i.replace(',', '.')
@@ -55,7 +68,7 @@ def serialSendDict(data):
         serial.write(txs.encode())
 
 
-# Open port button
+# Функция открытия серийного порта
 def onOpen(port):
     serial.setPortName(port)
     serial.open(QIODevice.ReadWrite)
@@ -64,10 +77,10 @@ def onOpen(port):
     serialSendInt(hello)
 
 
-# Make selected to int for Arduino
+# Функция формирования списка кодовых названий выбранных параметров
 def makeSelectedInt(sel, disks):
-    global disk_list
-    global selected
+    global disk_list, selected
+
     selected = sel
     disk_list = disks
 
@@ -120,10 +133,11 @@ def makeSelectedInt(sel, disks):
     except IndexError:
         pass
 
+    # Возвращается список кодовых названий выбранных параметров
     return selected_int
 
 
-# Returns the data in the desired form
+# Функция формирования строки данных для отправки на микроконтроллер
 def takeWhatDoYouNeed(sel, data):
     match sel:
         case '1':
@@ -165,6 +179,7 @@ def takeWhatDoYouNeed(sel, data):
                     'DiskWrite2 ' + data.get(f'Write Rate {disk_list[2]}').replace('/', '')]
 
 
+# Функция формирования среднего значения частоты процессора
 def getClocksCPUCore(data):
     values = []
     for i in range(1, 7, 1):
@@ -175,5 +190,6 @@ def getClocksCPUCore(data):
     return sum(values)/len(values)
 
 
+# Если модуль запущен напрямую, то ничего не произойдет
 if __name__ == "__main__":
     pass

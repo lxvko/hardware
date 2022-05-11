@@ -14,6 +14,7 @@ from PySide6.QtCore import QObject, Slot, Signal, QThread
 from PySide6.QtQml import QQmlApplicationEngine
 
 
+# Предварительное объявление переменных
 count = 0
 freq = 1
 disk_list = []
@@ -21,6 +22,7 @@ selected = []
 ports = []
 data = {}
 
+# Получение списков доступных для работы портов и дисков
 ports = getPorts()
 hwmon = wmi.WMI()
 disks = hwmon.Win32_DiskDrive()
@@ -28,6 +30,7 @@ for d in disks:
     disk_list.append(d.Caption)
 
 
+# Объявление потока для обновления данных
 class Thread(QThread):
 
     sendData = Signal(dict)
@@ -40,11 +43,11 @@ class Thread(QThread):
         self.wait()
 
     def run(self):
-        global infinity
-        global freq
+        global infinity, freq
 
         infinity = 'not the limit'
 
+        # Получение и отправка данных в бесконечном цикле
         while infinity == 'not the limit':
             time.sleep(freq)
             data = getData()
@@ -62,6 +65,7 @@ class Thread(QThread):
             self.sendPrint.emit(['bye'])
 
 
+# Объявление класса приложения
 class MainWindow(QObject):
     def __init__(self):
         QObject.__init__(self)
@@ -71,26 +75,35 @@ class MainWindow(QObject):
     driveModelList = Signal(list)
     portsModelList = Signal(list)
 
+    # Функция для отправки данных на микроконтроллер
     def sendDataToArduino(self, data):
         if type(data) == dict:
             serialSendDict(data)
         elif type(data) == list:
             serialSendInt(data)
 
+    # Функция обработки нажатия кнопки 'Apply'
     @Slot()
     def applyButton(self):
         if count > 0:
+            # На микроконтроллер передается список выбранных параметров
             serialSendInt(makeSelectedInt(selected, disk_list))
+
+            # Запуск потока для обновления данных
             self.thread = Thread()
             self.thread.sendData.connect(self.sendDataToArduino)
             self.thread.sendPrint.connect(self.sendDataToArduino)
             self.thread.start()
 
+    # Функция обработки нажатия кнопки 'Stop'
     @Slot()
     def stopButton(self):
         global infinity
+
+        # Изменение основного условия бесконечного цикла
         infinity = 'limit'
 
+    # Функция открытия нужного серийного порта
     @Slot(str)
     def openPort(self, port):
         if port == 'Choose':
@@ -100,19 +113,23 @@ class MainWindow(QObject):
         else:
             onOpen(port)
 
+    # Функция обработки введенного значения частоты обновления
     @Slot(int)
     def getSettings(self, frequency):
         global freq
         freq = frequency
 
+    # Функция обработки выбора диска
     @Slot()
     def getDriveComboBox(self):
         self.driveModelList.emit(list(disk_list))
 
+    # Функция обработки выбора порта
     @Slot()
     def getPortsComboBox(self):
         self.portsModelList.emit(list(ports))
 
+    # Функция обработки выбора параметров
     @Slot(bool, str, str)
     def returnStatus(self, isChecked, name, destiny):
         global count
@@ -141,6 +158,7 @@ class MainWindow(QObject):
                 count -= counter
                 self.countLimit.emit(False)
 
+    # Функция обработки выбора параметров, касающихся дисков
     @Slot(str, str)
     def returnDiskStatus(self, destination, chosenOne):
         global count
@@ -170,6 +188,7 @@ class MainWindow(QObject):
                     self.countLimit.emit(False)
 
 
+# Если приложение запущено напрямую, то запустится приложение
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
     engine = QQmlApplicationEngine()

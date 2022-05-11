@@ -84,7 +84,7 @@ Item {
 
                     ToolTip.delay: 500
                     ToolTip.visible: hovered
-                    ToolTip.text: qsTr(" Температура и загрузка ЦП в процентах ")
+                    ToolTip.text: qsTr(" Степень загрузки ЦП ")
 
                 }
 
@@ -166,7 +166,7 @@ Item {
 
                     ToolTip.delay: 500
                     ToolTip.visible: hovered
-                    ToolTip.text: qsTr(" Температура и загрузка ГП в процентах ")
+                    ToolTip.text: qsTr(" Степень загрузки ГП ")
                 }
 
                 Label {

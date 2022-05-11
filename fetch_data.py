@@ -4,6 +4,7 @@ import requests
 from uptime import uptime
 from pydantic import BaseModel
 
+# Формирование пустого словаря для данных
 sensor_data = {
     "Load CPU Total": "",
     "Temperatures CPU Package": "",
@@ -26,6 +27,7 @@ sensor_data = {
 }
 
 
+# Формирование моделей для данных
 class data(BaseModel):
     Text: str
     Value: str
@@ -51,22 +53,28 @@ class Computer(BaseModel):
     Children: list[Child]
 
 
+# Объявление переменной для адреса сервера
 url = 'http://localhost:8085/data.json'
 
 
+# Функция получения данных с сервера
 def getData():
+    # Формирование пункта Uptime для словаря данных
     Uptime = time.strftime("%H:%M:%S", time.gmtime(uptime()))
     sensor_data['Uptime'] = Uptime
 
+    # Проверка работоспособности сервера
     try:
         response = requests.get(url=url)
         data = json.dumps(response.json(), indent=2)
     except requests.exceptions.ConnectionError:
         return 'RunHWMon'
 
+    # Преобразование данных в модель библиотеки pydantic
     computer = Computer.parse_raw(data)
     parts = computer.Children[0].Children
 
+    # Перебор компонентов компьютера с целью формирования словаря данных
     for part in parts:
         if part.ImageURL != 'images_icon/hdd.png':
             descriptions = part.Children
@@ -113,8 +121,10 @@ def getData():
                         elif data.Text == 'Write Rate':
                             temp_data = f'Write Rate {part.Text}'
                             sensor_data[temp_data] = data.Value
+    # На выходе функции получается словарь данных
     return sensor_data
 
 
+# Если модуль запущен напрямую, то ничего не произойдет
 if __name__ == "__main__":
     pass
