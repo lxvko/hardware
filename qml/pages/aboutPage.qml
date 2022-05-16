@@ -156,7 +156,7 @@ Item {
             Label {
                 id: created
                 color: "#ffffff"
-                text: qsTr("Версия от 08.05.2022")
+                text: qsTr("Версия от 16.05.2022")
                 anchors.left: parent.left
                 anchors.top: backend.bottom
                 font.pointSize: 12

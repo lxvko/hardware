@@ -20,7 +20,8 @@ Window {
     maximumHeight: 600
     title: qsTr("Hardware Monitor")
 
-    flags: Qt.Window | Qt.FramelessWindowHint
+    flags: Qt.Window | Qt.FramelessWindowHint | Qt.WindowMinimizeButtonHint
+    
 
     Rectangle {
         id: bg

@@ -9,7 +9,7 @@ from fetch_data import getData
 from arduino import serialSendDict, serialSendInt
 from arduino import onOpen, getPorts, makeSelectedInt
 
-from PySide6.QtGui import QGuiApplication
+from PySide6.QtGui import QGuiApplication, QIcon
 from PySide6.QtCore import QObject, Slot, Signal, QThread
 from PySide6.QtQml import QQmlApplicationEngine
 
@@ -191,6 +191,7 @@ class MainWindow(QObject):
 # Если приложение запущено напрямую, то запустится приложение
 if __name__ == "__main__":
     app = QGuiApplication(sys.argv)
+    app.setWindowIcon(QIcon("images/icon.ico"))
     engine = QQmlApplicationEngine()
 
     main = MainWindow()

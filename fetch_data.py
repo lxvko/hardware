@@ -90,6 +90,9 @@ def getData():
                     for data in datas:
                         temp_data = f'Temperatures {data.Text}'
                         if temp_data in sensor_data:
+                            if temp_data == 'Temperatures CPU Cores':
+                                sensor_data['Temperatures CPU Package'] = data.Value
+                                continue
                             sensor_data[temp_data] = data.Value
                 elif description.Text == 'Load':
                     datas = description.Children
@@ -122,6 +125,7 @@ def getData():
                             temp_data = f'Write Rate {part.Text}'
                             sensor_data[temp_data] = data.Value
     # На выходе функции получается словарь данных
+    print(json.dumps(sensor_data, indent=2))
     return sensor_data
 
 
