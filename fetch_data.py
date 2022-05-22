@@ -8,6 +8,7 @@ from pydantic import BaseModel
 sensor_data = {
     "Load CPU Total": "",
     "Temperatures CPU Package": "",
+    "Temperatures CPU Cores": "",
     "Clocks CPU Core #1": "",
     "Clocks CPU Core #2": "",
     "Clocks CPU Core #3": "",
@@ -21,6 +22,7 @@ sensor_data = {
     "Clocks GPU Core": "",
     "Clocks GPU Memory": "",
     "Load GPU Core": "",
+    "Load D3D 3D": "",
     "Data GPU Memory Total": "",
     "Data GPU Memory Used": "",
     "Uptime": "",
@@ -90,9 +92,6 @@ def getData():
                     for data in datas:
                         temp_data = f'Temperatures {data.Text}'
                         if temp_data in sensor_data:
-                            if temp_data == 'Temperatures CPU Cores':
-                                sensor_data['Temperatures CPU Package'] = data.Value
-                                continue
                             sensor_data[temp_data] = data.Value
                 elif description.Text == 'Load':
                     datas = description.Children
@@ -125,7 +124,7 @@ def getData():
                             temp_data = f'Write Rate {part.Text}'
                             sensor_data[temp_data] = data.Value
     # На выходе функции получается словарь данных
-    print(json.dumps(sensor_data, indent=2))
+    # print(json.dumps(sensor_data, indent=2))
     return sensor_data
 
 

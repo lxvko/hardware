@@ -141,13 +141,21 @@ def makeSelectedInt(sel, disks):
 def takeWhatDoYouNeed(sel, data):
     match sel:
         case '1':
-            return [data.get('Temperatures CPU Package').split(',')[0],
-                    data.get('Load CPU Total').split(',')[0]]
+            if data.get('Temperatures CPU Package') != "":
+                return [data.get('Temperatures CPU Package').split(',')[0],
+                        data.get('Load CPU Total').split(',')[0]]
+            else:
+                return [data.get('Temperatures CPU Cores').split(',')[0],
+                        data.get('Load CPU Total').split(',')[0]]
         case '2':
             return [f'{getClocksCPUCore(data)} MHz']
         case '3':
-            return [data.get('Temperatures GPU Core').split(',')[0],
-                    data.get('Load GPU Core').split(',')[0]]
+            if data.get('Load GPU Core') != "":
+                return [data.get('Temperatures GPU Core').split(',')[0],
+                        data.get('Load GPU Core').split(',')[0]]
+            else:
+                return [data.get('Temperatures GPU Core').split(',')[0],
+                        data.get('Load D3D 3D').split(',')[0]]
         case '4':
             return [data.get('Clocks GPU Core').split(',')[0],
                     data.get('Clocks GPU Memory').split(',')[0]]

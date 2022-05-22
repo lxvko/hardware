@@ -133,7 +133,7 @@ void display() {
                 for (int i = 0; i < perc; i++) lcd.write(4);
                 lcd.setCursor(17, s);
                 lcd.print(GPU[1]);
-                lcd.print("% ");
+                lcd.print("%");
                 s = s + 1;
                 break;
             case 4:
@@ -166,7 +166,7 @@ void display() {
                 s = s + 1;
                 break;
             case 7:
-                lcd.print("RAM: ");
+                lcd.print("RAM:");
                 lcd.print(RAMmem[0]);
                 lcd.print(" - ");
                 lcd.print(RAMmem[1]);
