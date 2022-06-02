@@ -124,7 +124,6 @@ def getData():
                             temp_data = f'Write Rate {part.Text}'
                             sensor_data[temp_data] = data.Value
     # На выходе функции получается словарь данных
-    # print(json.dumps(sensor_data, indent=2))
     return sensor_data
 
 
