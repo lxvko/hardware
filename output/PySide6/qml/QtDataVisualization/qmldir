@@ -1,0 +1,7 @@
+module QtDataVisualization
+linktarget Qt6::DataVisualizationQml2
+plugin datavisualizationqml2plugin
+classname QtDataVisualizationQml2Plugin
+typeinfo plugins.qmltypes
+prefer :/qt-project.org/imports/QtDataVisualization/
+
