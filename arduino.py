@@ -157,8 +157,8 @@ def takeWhatDoYouNeed(sel, data):
                 return [data.get('Temperatures GPU Core').split(',')[0],
                         data.get('Load D3D 3D').split(',')[0]]
         case '4':
-            return [data.get('Clocks GPU Core').split(',')[0],
-                    data.get('Clocks GPU Memory').split(',')[0]]
+            return [data.get('Clocks GPU Core').split('.')[0],
+                    data.get('Clocks GPU Memory').split('.')[0]]
         case '5':
             return [data.get('Data GPU Memory Used').split(',')[0],
                     data.get('Data GPU Memory Total').split(',')[0]]
@@ -193,7 +193,7 @@ def getClocksCPUCore(data):
     for i in range(1, 7, 1):
         value = data[f'Clocks CPU Core #{i}']
         if value:
-            values.append(int(value.split(',')[0]))
+            values.append(int(value.split('.')[0]))
 
     return sum(values)/len(values)
 
